@@ -1,0 +1,23 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Allwood, Andersson, and Dahl}1977]{Allwood:1977aa}
+Allwood, Jens, Lars-Gunnar Andersson, and Osten Dahl.
+\newblock 1977.
+\newblock {\em Logic in linguistics}.
+\newblock Cambridge University Press.
+
+\bibitem[\protect\citename{Bird, Klein, and Loper}2009]{Bird:2009ab}
+Bird, Steven, Ewan Klein, and Edward Loper.
+\newblock 2009.
+\newblock {\em Natural language processing with Python}.
+\newblock O'Reilly, Beijing, Cambridge, Farnham, K{\"o}ln, Sebastopol and
+  Tokyo, 1st ed edition.
+
+\bibitem[\protect\citename{Chierchia and
+  McConnell-Ginet}2000]{Chierchia:2000uq}
+Chierchia, Gennaro and Sally McConnell-Ginet.
+\newblock 2000.
+\newblock {\em Meaning and grammar: an introduction to semantics}.
+\newblock MIT Press, Cambridge, Mass, 2nd ed edition.
+
+\end{thebibliography}

@@ -1,0 +1,1101 @@
+% This material is copyright Simon Dobnik and made available under the
+% Creative Commons Attribution 4.0 International License (CC-BY-SA)
+% license http://creativecommons.org/licenses/by-sa/4.0/
+% 
+% Email: simon.dobnik@gu.se
+% Web: http://dobnik.net/simon/teaching/shared/LT2112-formling/
+
+
+\documentclass{beamer}
+
+\usepackage{graphicx,hyperref,lingmacros,qtree,avm,fullname}
+
+
+
+\logo{\includegraphics[height=0.5cm]{pics/GU-logo.pdf}} 
+
+\newcommand{\bblue}[1]{{\usebeamercolor[fg]{frametitle}{#1}}}
+
+
+
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
+
+\setbeamertemplate{footline}[frame number]
+
+
+
+\resetcounteronoverlays{enums}
+
+
+
+\AtBeginSection[]
+{
+\begin{frame}[plain]
+
+{\huge\bblue{\insertsectionhead}}
+
+\end{frame}
+}
+
+
+
+
+\avmfont{\sc}
+\avmsortfont{\scriptsize\it}
+
+\renewcommand{\rmdefault}{\sfdefault}
+\renewcommand{\scdefault}{\sfdefault}
+
+
+
+\newcommand{\lb}[1]{[$_{\textsf{#1}}$} 
+\newcommand{\ibar}[1]{$\overline{#1}$} 
+
+
+
+
+
+
+\title[Syntax]{L4: Syntax II - Encoding grammar with features}
+
+\author[Dobnik]{Simon Dobnik \\
+Department of Philosophy, Linguistics, and Theory of Science
+} 
+
+\date{September 17, 2015}
+
+
+
+
+
+\begin{document}
+
+
+
+\frame{\titlepage}
+
+
+
+
+
+\frame{
+
+\frametitle{Previously\ldots}
+
+We developed a (simplified) CFG fragment of English.
+
+\bigskip
+
+But structural relations are not enough.
+
+\begin{enumerate}
+
+\item \pause \bblue{Selectional restrictions of constituents:}\\
+	\begin{itemize}
+		\item \emph{Agreement:} George/They likes/like butterflies.
+		\item \emph{Sub-categorisation:} Alex liked */the park.
+	\end{itemize}
+
+\item \pause \bblue{``Random'' laws of human language:} \\Sentences must have subjects: It rains.
+
+\item \pause \bblue{Sentence meaning:} \\\#The tree climbed up George.
+
+\end{enumerate}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Outline}
+
+\tableofcontents
+
+}
+
+
+
+
+
+\section{Agreement}
+
+\subsection{Examples of agreeing constituents}
+
+\frame{
+
+\frametitle{Subject-verb agreement}
+
+
+\ldots in \bblue{Person} and \bblue{Number}
+
+
+\eenumsentence{
+   \item \lb{NP}George] \bblue{likes} to travel by plane.
+   \item \lb{NP}Cats] \bblue{like} to travel by plane.
+   }
+
+\pause
+
+\eenumsentence{
+   \item \bblue{Does} \lb{NP}this cat] \bblue{like} to travel by plane?
+   \item \bblue{Do} \lb{NP} these cats] \bblue{like} to travel by plane?
+   }
+
+\pause
+
+
+\eenumsentence{
+   \item *\lb{NP}Cats] \bblue{likes} to travel by plane.
+   \item *\bblue{Do} \lb{NP}George] \bblue{likes} to travel by plane?
+   }
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Main verb and auxiliary verb}
+
+\ldots agree for \bblue{Tense} in English.
+
+\eenumsentence{
+   \item Many flights stop\bblue{ed} in Chicago.
+   \item Many flights \bblue{did} stop in Chicago.
+   \item \bblue{Did} any flights stop in Chicago?
+   \item \bblue{Did} George stop in Chicago?
+   }
+
+}
+
+
+
+
+\frame{
+
+\frametitle{Case}
+
+In Kambera the verb agrees with both subject and object.
+
+\bigskip
+
+\eenumsentence{
+   \item \shortex{5}{[I Ama]$_s$ & na$_s$-kei-ya$_o$ & [na & r\'{i} & muru]$_o$}
+     {the father & \textsc{3sg,nom}-buy-\textsc{3sg,acc} & the & vegetable & green}
+     {``Father buys the green vegetables.''}
+   \item \shortex{1}{Na$_s$-kei-ya$_o$}
+     {\textsc{3sg,nom}-buy-\textsc{3sg,acc}}
+     {``He/she buys it.''}
+   }
+
+\hfill \cite{Tallerman:2011aa}, p.159
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Case}
+
+English pronouns behave similarly\ldots
+
+
+\bigskip
+
+\eenumsentence{
+	\item She$_{nom}$ met her$_{acc}$.
+	\item *She$_{nom}$ met he$_{nom}$.
+	\item  *Him$_{acc}$ met she$_{nom}$.
+	}
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Gender}
+
+\bblue{Object-verb gender in Arabic}
+
+\eenumsentence{
+	\item uhibbuka\\
+	I love you - said to a male.
+	\item uhibbuki \\
+	I love you - said to a female.
+	}
+
+\pause
+
+\bblue{Subject-verb agreement in Portuguese}
+
+\eenumsentence{
+	\item Muito obrigad\bblue{o}. \\
+	I am very grateful - said by a male.
+	\item Muito obrigad\bblue{a}. \\
+	I'm very grateful - said by a female.
+	}
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Gender}
+
+\bblue{Determiner-adjective-noun agreement in German}
+
+
+\eenumsentence{
+	\item de\bblue{r} Krach \\ the noise
+	\item de\bblue{r} laut\bblue{e} Krach \\ the loud noise
+	\item ein laut\bblue{er} Krach \\ a loud noise
+        \item laut\bblue{er} Krach \\ loud noise
+	}
+
+\pause
+
+\bblue{Interaction with Case}
+
+\eenumsentence{
+\item di\bblue{e} klug\bblue{e} stark\bblue{e} Frau \\ the clever strong woman (nom)
+	\item de\bblue{r} klug\bblue{en} stark\bblue{en} Frau \\ the clever strong woman (gen)
+	}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Quantifiers}
+
+\eenumsentence{
+  \item Many letters have arrived.
+  \item *Much letters have arrived.
+  \item Not much post has arrived.
+  \item *Not many post has arrived.
+  }
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Why natural languages have agreement?}
+
+\pause
+
+Marking grammatical relations between constituents. 
+
+\bigskip
+
+From Northern Sotho, a Bantu language \cite{Tallerman:2011aa}, p.160:
+
+
+\eenumsentence{\item \shortex{3}
+     {Mp\v{s}a & \bblue{e}-lomile & ngwana.}
+     {dog & \textsc{subj}-bit & child}
+     {``The dog bit a/the child.''}    \item \pause \shortex{3}
+     {Ngwana & mp\v{s}a & \bblue{e-mo}-lomile.}
+     {child & dog & \textsc{subj-obj}-bit}
+     {``As for the child, the dog bit him/her.''}
+   \item \pause \shortex{3}
+     {Mp\v{s}a & ngwana & \bblue{e-mo}-lomile.}
+     {dog & child & \textsc{subj-obj}-bit}
+     {``As for the dog, it bit the child.''}
+   }
+
+
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{How to represent agreement - a solution?}
+
+Encode the agreement information in CFG rules.
+
+\enumsentence{TP $\rightarrow$ NP T VP}
+
+\pause
+
+\eenumsentence{
+	\item TP $\rightarrow$ NP3sg T3sg VPNon3sg
+	\item TP $\rightarrow$ NPNon3sg TNon3sg VPNon3sg
+	\item T3sg $\rightarrow$ does $|$ has $|$ \ldots
+	\item TNon3sg $\rightarrow$ do $|$ have $|$ \ldots
+	\item V3sg $\rightarrow$ likes $|$ \ldots
+	\item VNon3sg $\rightarrow$ like $|$ $\ldots$
+	\item \pause NP3sg $\rightarrow$ (D) (AP+) N3sg (PP+)
+	\item NPNon3sg $\rightarrow$ (D) (AP+) NNon3sg (PP+)
+	\item N3sg $\rightarrow$ George $|$ tree $|$ he $|$ she $|$ it $|$ \ldots 	\item NNon3sg $\rightarrow$ I $|$ you $|$ we $|$ they $|$ cats $|$ trees \ldots 	}
+
+
+}
+
+
+
+
+
+\section{Sub-categorisation}
+
+\subsection{Verbs as predicates}
+
+\frame{
+
+\frametitle{The categories of verbs}
+
+Currently, our VP rule is very general\ldots
+
+\enumsentence{VP $\rightarrow$ (AdvP+) V (NP) (\{NP/CP\}) (AdvP+) (PP+) (AdvP+)}
+
+\pause
+
+\bigskip
+
+But not every verb is compatible with every phrase that the rule generates. 
+
+\bigskip
+
+\eenumsentence{
+	\item *George sleeps the birds.
+	\item *George bought that Lydia sang an aria.
+	}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Different kinds of lexical incompatibility}
+
+\eenumsentence{
+	\item \#George typed a neutrino.
+	\item \#The apple is eating the colourless green cat furiously.
+	\item \pause *George said.
+	\item *George kissed Lydia Simon.
+	}
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Verbs as predicates}
+
+\begin{enumerate}
+
+\item \bblue{No argument} \\
+\lb{NP}It] rains. \lb{NP}It] snows. \\
+Sentences have to have subjects: dummy ``it''.
+
+\item \pause \bblue{An agent argument: intransitive verbs} \\
+\lb{NP}George] ran.
+
+\item \pause \bblue{A theme argument: un-accusative verbs} \\
+\lb{NP}George] fell.\\
+\emph{Remember:} sentences have to have subjects!
+
+\item \pause \bblue{An agent and a theme argument: transitive verbs}\\
+\lb{NP}George] kissed \lb{NP} Lydia] again.
+  
+\end{enumerate}
+
+}
+
+
+
+
+
+\frame{
+
+\begin{itemize}
+
+\item[5.] \bblue{An agent, a theme, and a goal argument}\\
+\lb{NP}George] gave \lb{NP}Lydia] \lb{NP}a present].\\
+\lb{NP}George] gave \lb{NP}a present] \lb{PP}to Lydia]. 
+
+\item[6.] \pause \bblue{An agent and a proposition argument: factives}\\
+\lb{NP}George] said \lb{CP}that he enjoyed the opera].
+
+\item[7.] \pause \bblue{An agent and an event argument}\\
+\lb{NP}George] intended \lb{TP}to climb a tree].
+
+\item[8.] \pause \bblue{An agent, a theme, and a proposition argument}\\
+\lb{NP}George] asked \lb{NP}Lydia] \lb{CP}whether she wants to\ldots].
+
+\item[9.] \pause \bblue{An agent, a theme and an event argument}\\
+\lb{NP}George] wanted \lb{NP}Lydia] \lb{TP}to sign an aria].
+
+\item[10] \pause \ldots
+
+\end{itemize}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Arguments are of types: Theta/$\theta$-roles}
+
+\bblue{\href{http://en.wikipedia.org/wiki/Theta_role}{Thematic roles}}
+
+\enumsentence{Agent, Theme, Goal\ldots}
+
+
+
+\pause \bigskip
+
+\bblue{Sub-categorisation frame/valency:} a collection of arguments/theta roles associated with a verb:
+
+\enumsentence{give(Agent,Theme,Goal)}
+
+\pause \bigskip
+
+\bblue{Theta-hierarchy}
+
+\enumsentence{Agent $<$ Experiencer $<$ Goal/Source/Location $<$ Theme}
+
+
+\eenumsentence{
+   \item Captain Alex sank the ship.
+   \item The ship sank.    }
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Arguments are of types: Theta/$\theta$-roles}
+
+A single verb can have different subcat-frames:
+
+
+\eenumsentence{
+	\item George found a snake.
+	\item George found me a good song on iTunes.
+	}
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Sub-categorisation resources for NLP}
+
+\bblue{FrameNet:} an annotated lexical resource of linguistic predicates (frames) and their arguments (frame elements).
+
+\bigskip
+
+\href{http://framenet.icsi.berkeley.edu/fndrupal/}{http://framenet.icsi.berkeley.edu}
+\href{http://spraakbanken.gu.se/eng/swefn}{http://spraakbanken.gu.se/eng/swefn}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Communication}
+
+Core frame elements:
+
+\begin{enumerate}
+\item \bblue{Communicator:} \underline{He} finds it hard to communicate\ldots
+\item \bblue{Medium:} Opinions are usually communicated \underline{over the telephone}\ldots
+\item \bblue{Message:} How do you communicate to them \underline{that you really like them}?
+\item \bblue{Topic:} Had someone communicated to the capital \underline{about the disregard of the religious law}?
+\item \bblue{Addressee:} The company must be able to communicate \underline{to potential customers}\ldots
+\item \bblue{Amount of information:} He never really \underline{fully} communicated his intentions.
+\item \bblue{Duration, frequency, manner, means, place, purpose, time\ldots}
+\end{enumerate}
+
+
+}
+
+
+
+
+
+\subsection{Nouns as predicates}
+
+\frame{
+
+\frametitle{Nouns as predicates}
+
+\eenumsentence{
+	\item \lb{NP} a student \lb{PP}of linguistics] \\ \lb{PP}with long hair] ].
+	\item \pause *\lb{NP} a student \lb{PP}of linguistics] \lb{PP}of physics] ]
+	\item \lb{NP}a student \lb{PP}with short hair] \lb{PP}with blue top] \lb{PP}on a bike] ]
+	\item \pause *\lb{NP}a student \lb{PP}with short hair] \lb{PP}of linguistics] ] ]
+	\item \pause \lb{NP}the one \lb{PP}with short hair] ]
+	\item *\lb{NP}the one \lb{PP}of linguistics] ] 
+	}
+
+\pause
+
+\bigskip
+
+Sub-categorisation arguments (\bblue{Complements}) are obligatory, other modifiers are optional (\bblue{Adjuncts}).
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Complements and adjuncts structurally}
+
+\footnotesize
+
+\Tree [.DP [.D the ]  [.NP [.AP [.A smart ] ] [.NP [.NP [.N student ] [.PP [.P of ] [.NP [.N linguistics ] ] ] ] [.PP [.P with ] [.NP [.AP [.A long ] ] [.NP [.N hair ] ] ] ] ] ] ]
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Complements and adjuncts structurally}
+
+Sentences (TPs) make a similar tree. 
+
+\bigskip
+
+What takes the D's place?
+
+\bigskip
+
+What takes the AP's and PP's place?
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Can structural relations be generalised?}
+
+\Tree [.XP AP\\Specifier\\\bblue{Agreement} [.XP [.XP X\\Head YP\\Complement\\\bblue{Argument} ] ZP\\Adjunct\\\bblue{Optional modifier} ] ]
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{The X-bar theory}
+
+\href{http://en.wikipedia.org/wiki/X-bar_theory}{The X-bar theory} \cite{Chomsky:1970aa,Jackendoff:1977aa}:
+
+\eenumsentence{
+	\item XP $\rightarrow$ Spec; \ibar{X}
+	\item (\ibar{X} $\rightarrow$ \ibar{X}; ZP)
+	\item \ibar{X} $\rightarrow$ X; YP
+	}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Representing sub-categorisation in CFG}
+
+
+\begin{itemize}
+
+\item A new rule for each predicate category? \\
+  \begin{enumerate}
+     \item VP$_{intran}$ $\rightarrow$ NP V$_{intran}$
+     \item VP$_{tran}$ $\rightarrow$ NP V$_{tran}$ NP 
+     \item \ldots
+     \end{enumerate}
+
+\item \pause Doable on its own but remember there is also agreement!
+
+
+\item \pause   \bblue{Parametrise} each node in the tree with \bblue{feature structures}.
+
+\end{itemize}
+
+}
+
+
+
+
+
+\section{Representing constraints: features and unification}
+
+\subsection{Feature structures and unification}
+
+\frame{
+
+\frametitle{Feature structures and unification}
+
+\begin{itemize}
+
+\item Represent each node of a CFG tree as a FS.
+
+\item \pause Compose the FSs in the same way as you compose the tree.
+
+\item \pause Add constraints on FSs to rules (constraint-based formalism).
+
+\item \pause Agreement, sub-categorisation, long distance dependencies, semantics, anything really\ldots
+
+\end{itemize}
+
+\pause \bigskip
+
+\enumsentence{S $\rightarrow$ NP VP \\
+The number of the NP is equal to the number of the VP.}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Feature structures as attribute-value matrices (AVMs)}
+
+\begin{avm}
+\[ Cat & np \\
+Number & sg \\
+Person & 3 
+\]
+\end{avm}
+\begin{avm}
+\[ Cat & np \\
+Agreement & \[ Number & sg \\
+			Person & 3 \] 
+\]
+\end{avm}
+
+
+\bigskip
+
+
+\begin{itemize}
+
+\item Lists of feature=value pairs
+
+\item \bblue{Features/attributes:} atoms
+
+\item \bblue{Values:} atoms or feature structures 
+\item \bblue{Feature path:} a list of features through a FS leading to a value: $\langle$\textsc{Agreement} \textsc{Person}$\rangle$
+
+\item Feature paths as \bblue{directed acyclic graphs} (DAGs).
+
+\end{itemize}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Shared or reentrant feature structures}
+
+\begin{avm}
+\[ Cat & tp \\
+Head &	\[ Agreement	\@{1} \[	Number & sg \\
+							Person & 3 \] \\
+		  Subject			  \[ Agreement \@{1} \] \\
+		  \] \\
+\]
+\end{avm}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Unifying FSs}
+
+\begin{itemize}
+
+\item \bblue{Unification ($\sqcup$):} combine two FSs so that the resulting FS contains all the information from the original two, nothing more.
+
+\item \bblue{Partial operation:} may be undefined (unlike union of sets).
+
+
+\end{itemize}
+
+\bigskip
+
+{\footnotesize
+F1: \begin{avm}
+\[ Cat & np \\
+Agreement & \[ Number sing \] \\
+\]
+\end{avm}
+F2: \begin{avm}
+\[ Cat & np \\
+Agreement & \[ Person 3 \] \\
+\]
+\end{avm}
+
+\bigskip
+
+F1 $\sqcup$ F2 = \pause F3: \begin{avm}
+\[ Cat & np \\
+Agreement & \[ Number & sing \\
+			Person & 3 \] \\
+\]
+\end{avm}
+}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Examples of unification}
+
+{\footnotesize
+F4: \begin{avm}
+\[ Cat & np \]
+\end{avm}
+\hspace{2cm} F5: \begin{avm}
+\[ Cat & vp \]
+\end{avm}
+
+\bigskip
+
+F4 $\sqcup$ F5 = \pause F6: Undefined!
+
+\bigskip
+
+\pause
+
+F7: \begin{avm}
+\[ Cat & np \]
+\end{avm}
+\hspace{2cm}
+F8: \begin{avm}
+\[ Cat & \[ \]\\
+ \]
+\end{avm}
+
+\bigskip
+
+F7 $\sqcup$ F8 = \pause F9: \begin{avm}
+\[ Cat & np \]
+\end{avm}
+
+\bigskip
+
+\pause
+
+F10: \begin{avm}
+\[ \]
+\end{avm}
+
+\bigskip
+
+F7 $\sqcup$ F10 = \pause F7 = \begin{avm}
+\[ Cat & np \]
+\end{avm}
+
+
+}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Examples of unification}
+
+{\footnotesize
+
+F11: \begin{avm}
+\[ Agreement & \[ Number & sing \] \\
+Subject & \[ Agreement & \[ Number & sing \\
+					Person & 3 
+					\] \\
+		\] \\
+\]
+\end{avm}
+
+\bigskip
+
+F12: \begin{avm}
+\[ Agreement & \@{1} \[ Number & sing 
+				\] \\
+  Subject & \[ Agreement & \@{1}
+  				\] \\
+\]
+\end{avm}
+
+\bigskip
+
+F11 $\sqcup$ F12 = \pause F13: \begin{avm}
+\[ Agreement & \@{1} \[ Number & sing \\
+				    Person & 3
+				\] \\
+  Subject & \[ Agreement & \@{1}
+  				\] \\
+\]
+\end{avm}
+}
+
+
+}
+
+
+
+
+
+\subsection{Agreement in unification grammar}
+
+\begin{frame}[fragile]
+
+\frametitle{Agreement in unification grammar}
+
+
+\eenumsentence{
+   \item George \bblue{likes} planes.
+   \item Cats \bblue{like} planes.
+   }
+
+\pause \bigskip
+
+S $\rightarrow$ NP VP \\
+$\langle$NP \textsc{Agreement}$\rangle$ = $\langle$VP \textsc{Agreement}$\rangle$ \\
+\cite{Jurafsky:2009uq} and \cite{Shieber1986}
+
+
+\pause \bigskip
+
+
+
+\verb+S -> NP[AGR=?n] VP[AGR=?n]+
+
+\bigskip
+
+?n in FS is a \bblue{variable}!
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]
+
+\frametitle{Terminal nodes}
+
+
+\bblue{Propagating features from terminals to heads}
+
+
+\bigskip
+
+\verb+V[AGR=[NUM=pl]] -> 'like'+
+
+\verb+V[AGR=[NUM=sg,PERS=3]] -> 'likes'+
+
+\verb+V[AGR=[]] -> 'liked'+
+
+\pause \bigskip
+
+\verb+N[AGR=[NUM=sg]] -> 'George'+
+
+\verb+N[AGR=[NUM=pl]] -> 'planes' | 'cats'+
+
+\verb+N[AGR=[]] -> 'sheep' | 'fish'+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[fragile]
+
+\frametitle{Propagating features from heads to phrases}
+
+\bblue{Head features:} features of a \bblue{head} that get propagated to the phrase 
+\pause \bigskip
+
+\verb+VP[AGR=?agr] -> V[AGR=?agr] NP+
+
+
+
+\pause \bigskip
+
+All head features can be grouped under the head FS and then propagated with a rule like 
+
+\bigskip
+
+\verb+X[HEAD=[CAT=v,AGR=[NUM=sg,PERS=3]],...]+
+
+\verb+XP[HEAD=?head] -> ... X[HEAD=?head] ...+
+
+
+\end{frame}
+
+
+
+
+
+\subsection{Sub-categorisation in unification grammar}
+
+\begin{frame}[fragile]
+
+\frametitle{Sub-categorisation in unification grammar}
+
+
+\eenumsentence{
+   \item \lb{NP}George] intended \lb{TP}to climb a tree].
+   \item \lb{NP}George] saw \lb{NP}Lydia].
+   }
+
+\pause \bigskip
+
+Add a \textsc{subcat} feature to predicates in the lexicon.
+
+\bigskip
+
+\verb+V[HEAD=[...],SUBCAT=to_clause] -> intended+
+
+\verb+V[HEAD=[...],SUBCAT=trans] -> saw+
+
+\pause \bigskip
+
+\verb+VP[HEAD=?head,SUBCAT=trans] -> +
+
+\verb+   V[HEAD=?head,SUBCAT=trans] NP+
+
+\verb+VP[HEAD=?head,SUBCAT=to_clause] -> +
+
+\verb+   V[HEAD=?head,SUBCAT=to_clause] TP[-TENSE]+
+
+\end{frame}
+
+
+
+
+
+\frame{
+
+\frametitle{More examples in NLTK}
+
+nltk\_data/grammars/book\_grammars/
+
+\bigskip
+
+feat0.fcfg, feat1.fcfg and german.fcfg
+
+}
+
+
+
+
+
+\frame{ 
+\frametitle{Further reading}
+
+\begin{itemize}
+
+\item \cite{Allen:1995aa}: Chapters 4.1 (Feature systems and augmented grammars), 4.2 (Some basic feature systems for English) and 4.3 (A simple grammar using features)
+
+
+\item \cite{Bird:2009ab}: \href{http://www.nltk.org/book/ch09.html}{Chapter 9} Building Feature Based Grammars.
+
+\item \cite{Jurafsky:2009uq}: Chapter 15.1 (Feature Structures), 15.2 (Unification feature structures), 15.3 (Feature structures in the grammar) and 15.4 (Implementation of Unification)
+
+\item \cite{Shieber1986}: \href{http://dash.harvard.edu/handle/1/11576719}{http://dash.harvard.edu/handle/1/11576719}
+
+\end{itemize}
+
+}
+
+
+
+
+
+\begin{frame}[allowframebreaks]{References}
+
+\small
+
+
+\bibliographystyle{fullname}
+\bibliography{bibliography}
+
+\end{frame}
+
+
+
+
+
+\end{document}

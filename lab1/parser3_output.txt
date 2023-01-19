@@ -1,0 +1,46 @@
+1:  the cat likes George
+
+(S[]
+  (NP[] (Det[] the) (N[] cat))
+  (VP[] (V[] likes) (NP[] (PropN[] George))))
+
+
+1:  all cats like every garden
+
+(S[]
+  (NP[] (Det[] all) (N[] cats))
+  (VP[] (V[] like) (NP[] (Det[] every) (N[] garden))))
+
+
+1:  every cat purrs
+
+(S[] (NP[] (Det[] every) (N[] cat)) (VP[] (V[] purrs)))
+
+
+1:  every cat purrs in the garden
+
+(S[]
+  (NP[] (Det[] every) (N[] cat))
+  (VP[]
+    (VP[] (V[] purrs))
+    (PP[] (P[] in) (NP[] (Det[] the) (N[] garden)))))
+
+
+2:  every cat chases a dog in the garden
+
+(S[]
+  (NP[] (Det[] every) (N[] cat))
+  (VP[]
+    (VP[] (V[] chases) (NP[] (Det[] a) (N[] dog)))
+    (PP[] (P[] in) (NP[] (Det[] the) (N[] garden)))))
+
+
+(S[]
+  (NP[] (Det[] every) (N[] cat))
+  (VP[]
+    (V[] chases)
+    (NP[]
+      (NP[] (Det[] a) (N[] dog))
+      (PP[] (P[] in) (NP[] (Det[] the) (N[] garden))))))
+
+

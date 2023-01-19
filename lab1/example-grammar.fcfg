@@ -1,0 +1,42 @@
+## Natural Language Toolkit: example-grammar.fcfg
+##
+## Introduction to Formal Linguistics Lab 1: Context-free grammar
+##
+## Author: Simon Dobnik 
+## Email: simon.dobnik@gu.se
+
+% start S
+# ###################
+# Grammar Productions
+# ###################
+
+# Sentences
+S -> NP VP
+
+# Noun phrases
+NP -> N
+NP -> PropN
+NP -> Det N
+NP -> NP PP
+
+# Verb phrases
+VP -> V
+VP -> V NP
+VP -> VP PP
+
+# Prepositional phrases
+PP -> P NP
+
+# ###################
+# Lexical Productions
+# ###################
+
+Det -> 'the' | 'a' | 'some' | 'all' | 'every'
+
+PropN -> 'George' | 'Alex' | 'him' | 'her'
+
+N -> 'cat' | 'cats' | 'dog' | 'dogs' | 'garden' | 'gardens'
+
+V -> 'like' | 'likes' | 'chases' | 'purrs'
+
+P -> 'in'

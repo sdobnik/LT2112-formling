@@ -1,0 +1,79 @@
+## Natural Language Toolkit: feat1.fcfg
+##
+## Second example of a feature-based grammar, illustrating
+## SUBCAT and slash features. Also introduces SBar and embedded
+## clauses.
+## Used in Feature-Based Grammars chapter.
+## 
+## Author: Ewan Klein <ewan@inf.ed.ac.uk> 
+## URL: <http://nltk.sourceforge.net>
+## For license information, see LICENSE.TXT
+##
+## 2014-09-26 Additional comments by Simon Dobnik
+
+
+% start S
+# ###################
+# Grammar Productions
+# ###################
+
+# We need pairs of rules, some that deal with gap threading for displaced constituents and some without gap threading for non-displaced constituents.
+
+S[-INV] -> NP VP
+S[-INV]/?x -> NP VP/?x
+
+# The following rule states that a sentence rewrites as an NP (which will be a wh-phrase or a topicalised phrase, we call it a filler) and a sentence containing an NP gap which matches the filler. The type of the filler must be passed down the tree (in every constituent rule) until we find the constituent that the filler corresponds to, i.e. the gap (the rule: NP/NP ->). This is why we need two sets of rules (gap threading - non gap-threading). Note also that the filler is passed down as a variable which means we can use the same mechanism for different types of fillers and also that in each sentence we can have only one displaced constituent which conforms with the facts of English (no multiple wh-movement).
+
+# The gapped sentences can be either inverted or not inverted. It thus allows us to cover both topicalised phrases and wh-questions.
+
+S[-INV] -> NP S/NP
+
+# Never do cats sing.
+
+S[-INV] -> Adv[+NEG] S[+INV]
+
+# Inverted sentences are required when we have an auxiliary
+
+# Gap-threading may continue beyond sentence boundaries into another sentence
+
+S[+INV] -> V[+AUX] NP VP
+S[+INV]/?x -> V[+AUX] NP VP/?x
+
+# Sbar is identical to the CP in my lecture notes
+
+SBar -> Comp S[-INV]
+SBar/?x -> Comp S[-INV]/?x
+
+VP -> V[SUBCAT=intrans, -AUX]
+
+VP -> V[SUBCAT=trans, -AUX] NP
+VP/?x -> V[SUBCAT=trans, -AUX] NP/?x
+
+VP -> V[SUBCAT=clause, -AUX] SBar
+VP/?x -> V[SUBCAT=clause, -AUX] SBar/?x
+
+VP -> V[+AUX] VP
+VP/?x -> V[+AUX] VP/?x
+
+# ###################
+# Lexical Productions
+# ###################
+V[SUBCAT=intrans, -AUX] -> 'walk' | 'sing'
+V[SUBCAT=trans, -AUX] -> 'see' | 'like'
+V[SUBCAT=clause, -AUX] -> 'say' | 'claim'
+V[+AUX] -> 'do' | 'can'
+
+NP[-WH] -> 'you' | 'cats'
+NP[+WH] -> 'who'
+
+Adv[+NEG] -> 'rarely' | 'never'
+
+# This is an NP that is a gap, i.e. an NP rewrites to an empty string, the gap.
+
+NP/NP ->
+
+Comp -> 'that'
+
+
+
+# eof

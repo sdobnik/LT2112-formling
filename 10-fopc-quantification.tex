@@ -1,0 +1,831 @@
+% This material is copyright Simon Dobnik and made available under the
+% Creative Commons Attribution 4.0 International License (CC-BY-SA)
+% license http://creativecommons.org/licenses/by-sa/4.0/
+% 
+% Email: simon.dobnik@gu.se
+% Web: http://dobnik.net/simon/teaching/shared/LT2112-formling/
+
+
+\documentclass{beamer}
+
+
+\usepackage{graphicx,hyperref,lingmacros,qtree,stmaryrd,fullname}
+\usepackage[utf8]{inputenc}
+
+
+
+
+
+\newcommand{\bblue}[1]{{\usebeamercolor[fg]{frametitle}{#1}}}
+
+
+\logo{\includegraphics[height=0.5cm]{pics/GU-logo.pdf}} 
+
+
+
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
+
+\setbeamertemplate{footline}[frame number]
+
+
+\resetcounteronoverlays{enums}
+
+
+\AtBeginSection[]
+{
+\begin{frame}[plain]
+
+{\huge\bblue{\insertsectionhead}}
+
+\end{frame}
+}
+
+
+
+
+\setlength\fboxrule{1pt}
+\setlength\fboxsep{0mm} 
+
+
+
+\newcommand{\evaluation}[2][]{\ensuremath{\llbracket #2\rrbracket^{#1}}}
+\newcommand{\semval}[1]{\evaluation[\mathcal{M},g]{\text{#1}}} \newcommand{\semvala}[1]{\evaluation[\mathcal{M}_1,g_1]{\text{#1}}} \newcommand{\semvalb}[1]{\evaluation[\mathcal{M}_3,g_3]{\text{#1}}} 
+
+\newcommand{\lb}[1]{[$_{\textsf{#1}}$} 
+
+
+\newcommand{\opair}[2][]{$\langle$#1#2$\rangle$}
+
+
+
+
+\newcommand{\newpause}[0]{\pause}
+
+
+
+
+
+\title[Semantics]{L10: Semantics III - First order logic/predicate calculus (FOPC)}
+
+\author[Dobnik]{Simon Dobnik \\ 
+Department of Philosophy, Linguistics and Theory of Science
+} 
+
+\date{October 14, 2015}
+
+
+
+
+
+\begin{document}
+
+
+
+
+
+\frame{\titlepage}
+
+
+
+
+
+\frame{
+
+\frametitle{Up to now: Propositional logic to represent sentences}
+
+and $\wedge$, or $\vee$, neg $\neg$, and propositions $P$, $Q$\ldots
+
+\eenumsentence{
+\item Pavarotti is hungry. $P$
+
+\item Bond likes Loren. $Q$
+
+\item Pavarotti is hungry and Bond likes Loren. $P \wedge Q$
+
+\item Pavarotti is not hungry or Loren likes Loren. $\neg P \vee Q$
+
+\item If Pavarotti is hungry, Bond likes Loren. $P \rightarrow Q$
+
+}
+
+\bigskip \pause
+
+We cannot express internal structure of propositions.
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Pronouns}
+
+\enumsentence{She likes Pavarotti but he doesn't.}
+
+\eenumsentence{
+
+\item Loren likes Pavarotti and Pavarotti doesn't like Pavarotti.
+
+\item Loren likes Pavarotti and James Bond doesn't like Pavarotti.
+
+}
+
+\pause
+
+\begin{itemize}[<+->]
+
+\item The denotation of ``she'' and ``he''?
+
+\item Variables that allow alternative assignments (e.g. pointing).
+\end{itemize}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Quantified NPs}
+
+\eenumsentence{\item Everyone likes Loren.
+\item No one is boring.
+\item Someone is hungry.}
+
+\newpause
+
+
+\eenumsentence{\item Loren likes Loren, and James Bond likes Loren, and Pavarotti likes Loren.
+\item It is not the case that [Loren is boring or Bond is boring or Pavarotti is boring].
+\item[b$'$.] Loren is not boring, and Bond is not boring, and Pavarotti is not boring.
+\item Loren is hungry, or Bond is hungry, or Pavarotti is hungry.}
+
+\newpause \bigskip
+
+Finding denotations: pointing and cardinality over pointing.
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Quantifiers in FOPC}
+
+
+\begin{itemize}
+
+\item \bblue{Universal quantifier:} $\forall$ (every, all) \\ for every assignment x
+
+\item \bblue{Existential quantifier:} $\exists$ (a, some) \\ for some (one or more) assignment x
+
+\item \bblue{Generalised quantifiers:} ? (most, many, a few): \\ cannot be handled in FOPC
+
+\end{itemize}
+
+}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{We need to express\ldots}
+
+\enumsentence{She likes Pavarotti but he doesn't.\\$L(x_1, p) \wedge \neg L(x_2, p)$}
+
+\enumsentence{Everyone likes Loren. \\ $\forall x_1[L(x_1, l]$}
+
+
+\begin{itemize}
+
+\item Constants: $p, b, m$
+
+\item Predicates: $L/2$
+
+\item Variables: $x_1, x_2$
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\frame{
+
+\frametitle{Syntax of FOPC}
+
+
+\eenumsentence{\item \bblue{Variables:} for any integer $n$, $x_n$ is a variable. \\ Infinite number of variables denoting objects/individuals
+\item \newpause \bblue{Constants:} $j$, $m$,\ldots $c_n$ \\denoting individuals
+\item \newpause \bblue{Terms:} variables and constants
+\item \newpause \bblue{Predicates:} $P,Q$ for one-place predicates (Pred$_1$), $K$ for two-place predicates (Pred$_2$) and $G$ for three-place predicates (Pred$_3$)
+\item \newpause If $A$ is an $n$-place predicate and $t_1,\ldots t_n$ are $n$ terms, then $A(t_1,\ldots , t_n)$ is a \bblue{formula} (Form) \\ Terms are arguments to predicates
+\item \newpause If $A$ and $B$ are \bblue{formulae}, then so are $\neg A$, $[A \wedge B ]$, $[A \vee B ]$, $[A \rightarrow B ]$, $[A \leftrightarrow B ]$, $\forall x_n A, \exists x_n A$ (recursive definition!) 
+\item \newpause If $t_1,t_2$ are terms. then $t_1 = t_2$ is a formula.}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Well-formed formula: $wff$}
+
+\eenumsentence{
+
+\item $P(j)$
+
+\item $\neg P(j)$
+
+\item $[P(j) \wedge Q(x,y)]$
+
+\item $\neg [(P(j) \vee Q(x,y)]$ and $[[\neg (P(j)] \vee Q(x,y)]$ (bracketing!)
+
+\item $\exists$x$_3$[Q(x$_3$)] (bound variables)
+
+\item Q(x$_3$) (free variables)
+}
+
+
+\eenumsentence{
+
+\item $K(j, x_4)$
+
+\item $\forall x_2[G(j,m,x_2) \wedge P(x2)]$
+
+\item $\exists x_3[P(x_3) \vee Q(j)]$
+
+\item $[[\exists x_3 P(x_3)] \vee Q(j)]$
+
+\item $\forall x_3 [[\exists x_3 P(x_3)] \vee Q(x_3)]$
+
+\item $\forall x_1 [\exists x_3 [P(x_3) \vee Q(x_1)]]$
+
+}
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Semantics of FOPC}
+
+Let $\mathcal{M}_1$ be a pair $\langle U_1, V_1 \rangle$ where $U_1$ is a set of individuals (\bblue{domain} or \bblue{universe of discourse}) and $V_1$ assigns an extension in $U_1$ to each constant of FOPC and an extension of $n$-tuples built from $U_1$ to each predicate.
+
+\bigskip
+
+$U_1$ = \{Bond, Pavarotti, Loren\}
+
+\newpause
+
+$V_1(j)$ = Bond
+
+$V_1(m)$ = Loren
+
+\newpause
+
+$V_1(P)$ = \{Loren, Pavarotti\}
+
+$V_1(Q)$ = \{Loren, Bond\}
+
+$V_1(K)$ = \{\opair{Bond,Bond}, \opair{Bond,Loren}, \opair{Loren,Pavarotti}, \opair{Pavarotti,Loren}\}
+
+$V_1(G)$ = \{$\langle$Bond,Loren,Pavarotti$\rangle$, $\langle$Loren,Loren,Bond$\rangle$, $\langle$Loren,Bond,Pavarotti$\rangle$, $\langle$Pavarotti,Pavarotti,Loren$\rangle$
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Semantics of FOPC}
+
+\begin{itemize}
+
+\item We need to assume some way of interpreting variables by associating them with elements in $U_1$.
+
+
+\item If $g$ is an assignment of values to variables, $v$ a variable and $a$
+an individual in $U_1$, then $g[v/a]$ is an assignment exactly like $g$
+except that it assigns the value $a$ to $v$. (If $g$ already assigned
+$a$ to $v$ then there is no change.)
+
+\item $g$ helps us to keep track of assignments of members of $U_1$ to variables.
+
+\end{itemize}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Assigning $u_1 \in U_1$ to $g_1$}
+
+E.g. we start with $g_1$ like this\ldots
+
+\bigskip
+
+$g_1$ = $\begin{bmatrix} 
+x_1 & \rightarrow & \text{Bond} \\
+x_2 & \rightarrow & \text{Loren} \\
+x_n & \rightarrow & \text{Pavarotti; where } n \geq 3
+\end{bmatrix}$ 
+
+\bigskip
+
+Assigning Bond to $x_3$ gives us\ldots
+
+\bigskip
+
+$g_1[Bond/x_3]$ = $\begin{bmatrix} 
+x_1 & \rightarrow & \text{Bond} \\
+x_2 & \rightarrow & \text{Loren} \\
+x_3 & \rightarrow & \text{Bond} \\
+x_n & \rightarrow & \text{Pavarotti; where } n \geq 4
+\end{bmatrix}$ 
+
+
+\bigskip
+
+$g_1[Bond/x_1] = g_1$ 
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Assigning $u_1 \in U_1$ to $g_1$}
+
+Assignments may be nested: we can modify already a modified assignment, c.f. expressions with multiple quantifiers
+
+\bigskip
+
+$g_1[[Bond/x_3]/Loren/x_1]$ = $\begin{bmatrix} 
+x_1 & \rightarrow & \text{Loren} \\
+x_2 & \rightarrow & \text{Loren} \\
+x_3 & \rightarrow & \text{Bond} \\
+x_n & \rightarrow & \text{Pavarotti; where } n \geq 4
+\end{bmatrix}$ 
+
+
+\bigskip
+
+Checking the value in the assignment:
+
+\begin{itemize}
+
+\item $g_1[[Bond/x_3]/Loren/x_1] (x_1)$ = Loren
+
+\item $g_1[[Bond/x_3]/Loren/x_1] (x_6)$ = Pavarotti
+
+\end{itemize}
+
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Interpreting FOPC}
+
+If $A$ is either a predicate or a constant, then \semvala{$A$} = $V_1(A)$.
+
+If $A$ is a variable, \semvala{$A$} = $g_1(A)$.
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Interpreting FOPC}
+
+For any formulas $A$, $B$, any Pred$_n R$, and any terms $t_1,\ldots,t_n$,
+
+\begin{itemize}[<+->]
+
+\item[a.] \semvala{$R(t_1,\ldots,t_n)$} = 1 iff $\langle$\semvala{$t_1$},\ldots,\semvala{$t_n$}$\rangle \in$ \semvala{$R$}
+
+\item[b.] \semvala{$A \wedge B$} = 1 iff \semvala{$A$} = 1 and \semvala{$B$} = 1
+
+\item[c.] \semvala{$A \vee B$} = 1 iff \semvala{$A$} = 1 or \semvala{$B$} = 1
+
+\item[d.] \semvala{$A \rightarrow B$} = 1 iff \semvala{$A$} = 0 or \semvala{$B$} = 1
+
+\item[e.] \semvala{$A \leftrightarrow B$} = 1 iff \semvala{$A$} = \semvala{$B$}
+
+\item[f.] \semvala{$\neg A$} = 1 iff \semvala{$A$} = 0
+
+\item[g.] \semvala{$t_1 = t_j$} = 1 iff \semvala{$t_1$} is the same as \semvala{$t_j$}
+
+\end{itemize}
+
+}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Interpreting FOPC: Quantifiers}
+
+\begin{itemize}[<+->]
+
+\item[h.] \evaluation[\mathcal{M}_i,g_i{[u/x_n]}]{A} stands for a donation of $A$ where $u$ is assigned to every occurrence of $x_n$ in A.
+
+\item[i.] \semvala{$\forall x_n A$} = 1 iff for all $u \in U$, \semvala{$A$}$^{[u/x_n]}$ = 1, where $g_1[u/x_n] = g_1$, except that $g_1[u/x_n](x_n) = u$ \\
+The function $g_1[u/x_n]$ is the same as $g_1$ except that $x_n$ is assigned to $u$, for every $u$, other assignments are the same 
+\item[j.] \semvala{$\exists x_n A$} = 1 iff for some $u \in U$, \semvala{$A$}$^{[u/x_n]}$ = 1
+
+\item \bigskip For $\forall$ stop assignment if some $u$ results in falsehood.
+
+\item For  $\exists$ stop assignment if some $u$ results in truth.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\frame[allowframebreaks]{
+
+\frametitle{An example interpretation}
+
+Evaluate $\exists x_1P(x_1)$ in $\mathcal{M}_1$ with respect to $g_1$.
+
+\begin{itemize}
+
+\item \semvala{$\exists x_1P(x_1)$} = 1 iff for some u $\in$ $U_1$, \semvala{$P(x_1)$}$^{[u/x_1]}$ = 1
+
+\item Assign Bond to $x_1$; i.e., consider $g_1[Bond/x_1]$
+
+\item \semvala{$P(x_1)$}$^{[u/x_1]}$ = 1 iff \semvala{$x_1$}$^{[u/x_1]}$ $\in$ \semvala{$P$}$^{[u/x_1]}$
+
+\item \semvala{$x_1$}$^{[u/x_1]}$ $\in$ \semvala{$P$}$^{[u/x_1]}$ iff $g_1[Bond/x_1](x_1)$ $\in$ $V_1(P)$ = \{Loren, Pavarotti\}
+
+\item $g_1[Bond/x_1](x_1)$ = Bond 
+
+\item \semvala{$P(x_1)$}$^{[u/x_1]}$ = 1 iff Bond $\in$ \{Loren, Pavarotti\} 
+
+\item \semvala{$P(x_1)$}$^{[u/x_1]}$ = 0
+
+\item Assign Loren to $x_1$; i.e., consider $g_1[Loren/x_1]$ 
+
+\item \semvala{$P(x_1)$}$^{[Loren/x_1]}$ = 1 iff \semvala{$x_1$}$^{[Loren/x_1]}$ $\in$ \semvala{$P$}$^{[Loren/x_1]}$
+
+\item \semvala{$x_1$}$^{[Loren/x_1]}$ $\in$ \semvala{$P$}$^{[Loren/x_1]}$ iff $g_1^{[Loren/x_1]}(x_1)$ $\in$ $V_1(P)$ = \{Loren, Pavarotti\}
+
+\item $g_1[Loren/x_1](x_1)$ = Loren
+
+\item \semvala{$P(x_1)$}$^{[Loren/x_1]}$ = 1 iff Loren $\in$ \{Loren, Pavarotti\}
+
+\item \semvala{$P(x_1)$}$^{[Loren/x_1]}$ = 1
+
+\item \semvala{$\exists x_1P(x_1)$} = 1
+
+\end{itemize}
+
+}
+
+
+
+
+
+\newcommand{\mng}[1]{\mbox {$[ \! [$ #1 $] \! ]$}}
+
+
+\frame{
+
+\frametitle{Leaving out interpretation steps\ldots}
+
+
+
+\bigskip
+
+$\mathcal{M}_2 \langle U_2, V_2 \rangle$
+
+$U_2 = \{l,a,g,f\}$
+
+$V_2(\mbox{\textsf{Lydia}}) = l; V_2(\mbox{\textsf{Alex}}) = a; V_2(\mbox{\textsf{Goldy}}) = g; V_2(\mbox{\textsf{Fido}}) = f$
+
+$V_2(\mbox{\textsf{likes}}) = \{\langle l,a\rangle, \langle l,f\rangle, \langle a,g\rangle, \langle l,g\rangle\}$
+
+$V_2(\mbox{\textsf{runs}}) = \{l, f\}$
+
+$V_2(\mbox{\textsf{human}}) = \{l, a\}$
+
+$V_2(\mbox{\textsf{dog}}) = \{g, f\}$
+
+$V_2(\mbox{\textsf{owns}}) = \{\langle l,f\rangle, \langle a,g\rangle\}$
+
+$V_2(\mbox{\textsf{sybling\_of}}) = \{\langle l,a\rangle, \langle a,l\rangle, \langle g,f\rangle, \langle f,g\rangle\}$
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{\mng{$\forall\,  x.\;(\exists\,  y.\;(\mbox{\textsf{likes}}(x,y)))$}$^{\mathcal{M}_2,g}$}
+
+\footnotesize
+
+\[
+\begin{array}{ccc||cc}
+\forall\,  x.&(\exists\,  y.&(\mbox{\textsf{likes}}(x,y)))&x&y\\\hline
+&&0&l&l\\
+&1&1&l&a\\
+&&1&l&g\\
+&&1&l&f\\
+&&0&a&l\\
+&1&0&a&a\\
+&&1&a&g\\
+\mathbf{0}&&0&a&f\\
+&&0&g&l\\
+&0&0&g&a\\
+&&0&g&g\\
+&&0&g&f\\
+&&0&f&l\\
+&0&0&f&a\\
+&&0&f&g\\
+&&0&f&f
+\end{array}
+\]
+So \textbf{FALSE}.
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Representing natural language in first order logic, I}
+
+\enumsentence{Every cat has a secret. \\ \pause $\forall\,  x. (\mbox{\textsf{cat}}(x) \rightarrow \exists\,  y. (\mbox{\textsf{secret}}(y) \wedge \mbox{\textsf{have}}(x,y)))$\\ \pause
+$\exists\,  y. (\mbox{\textsf{secret}}(y) \wedge \forall\,  x. (\mbox{\textsf{cat}}(x) \rightarrow \mbox{\textsf{have}}(x,y)))$
+}
+
+\bigskip \pause
+
+\enumsentence{George owns a dog and his brother owns a dog.\\ \pause $\exists\,  x. (\mbox{\textsf{dog}}(x) \wedge \mbox{\textsf{own}}(\mbox{\textsf{George}}, x)) \wedge \exists\,  y. (\mbox{\textsf{dog}}(y) \wedge \mbox{\textsf{own}}(\mbox{\textsf{brother\_of}}(\mbox{\textsf{George}}), y))$\\ \pause
+(?)$\exists\,  x. (\mbox{\textsf{dog}}(x) \wedge \mbox{\textsf{own}}(\mbox{\textsf{George}}, x) \wedge \exists\,  y. (\mbox{\textsf{dog}}(y) \wedge \mbox{\textsf{own}}(\mbox{\textsf{brother\_of}}(x), y)))$\\ \pause
+(??)$\exists\,  x. (\mbox{\textsf{dog}}(x) \wedge \mbox{\textsf{own}}(\mbox{\textsf{George}}, x) \wedge \mbox{\textsf{own}}(\mbox{\textsf{brother\_of}}(\mbox{\textsf{George}}), x))$
+}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Representing natural language in first order logic, I}
+
+\enumsentence{No cat meowed in the night. \\ \pause $\neg\,  \exists\,  x. (\mbox{\textsf{cat}}(x) \wedge \mbox{\textsf{meowed\_in\_the\_night}}(x))$\\ \pause
+$\forall\,  x. (\mbox{\textsf{cat}}(x) \rightarrow \neg\,  \mbox{\textsf{meowed\_in\_the\_night}}(x))$ \\ \pause
+(?)$\neg\,  \exists\,  t. (\mbox{\textsf{time}}(t) \wedge \mbox{\textsf{in\_the\_night}}(t) \wedge \exists\,  d. (\mbox{\textsf{cat}}(d) \wedge \mbox{\textsf{meow\_at\_time}}(d,t)))$\\ \pause
+(?)$\neg\,  \exists\,  e. ([\mbox{\textsf{event}}(e)\, \wedge\,]\; \exists\,  d. (\mbox{\textsf{cat}}(d) \wedge \mbox{\textsf{meow}}(e,d) \wedge \mbox{\textsf{in}}(e, \mbox{\textsf{the\_night}})))$
+
+}
+
+}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference: definitions}
+
+
+\begin{itemize}
+
+\item A \bblue{wff} is \bblue{logically valid} iff it is true for every interpretation.
+
+\item A \bblue{wff} is \bblue{contradictory} iff \bblue{$\neg$wff} is logically valid.
+
+\item $A$ \bblue{logically implies} $B$ ($B$ is a \bblue{logical consequence} of $A$) iff in every interpretation, when $A$ is true, $B$ is true (i.e. $A \rightarrow B$ is logically valid).
+
+\item $A$ and $B$ are \bblue{logically equivalent} iff they logically imply each other.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference: rules}
+
+\begin{itemize}
+
+\item All the inference rules of propositional calculus, plus: 
+   \begin{itemize}
+   \item Universal instantiation: \\ $\forall x.P(x) \vdash P(a)$ where $a$ is a constant 
+
+
+   \item Existential generalisation: \\ $P(a) \vdash \exists x.P(x)$
+   \end{itemize}
+
+
+ \item \pause FOPC is \bblue{consistent} -- no inference rule will go from a logically valid statement to an invalid one, and
+
+ \item \bblue{complete} -- every logically valid statement can be derived by some sequence of application of the inference rules.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference}
+
+We can show the validity of our inference pattern either via the semantics of the expressions, or by the application of inference rules:
+
+\pause
+
+\begin{itemize}
+
+\item Pavarotti was Italian; all Italians are Europeans; therefore Pavarotti was European.
+
+\item Italian(Pavarotti) \\
+$\forall$x. Italian(x) $\rightarrow$ European(x) \\
+European(Pavarotti)
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Lewis Carroll's puzzle}
+
+\begin{enumerate}
+
+\item All honest industrious men are healthy. \\
+$\forall$x.honest(x) $\wedge$ industrious(x) $\rightarrow$ healthy(x) 
+
+\item No grocers are healthy. \\
+$\neg \exists$x.grocer(x) $\wedge$ healthy(x) 
+
+\item All industrious grocers are honest. \\
+$\forall$x.industrious(x) $\wedge$ grocer(x) $\rightarrow$ honest(x) 
+
+\item All cyclists are industrious.  \\
+$\forall$x.cyclist(x) $\rightarrow$ industrious(x) 
+
+\item All unhealthy cyclists are dishonest.\\
+$\forall$x.cyclist(x) $\wedge$ $\neg$healthy(x) $\rightarrow$ $\neg$honest(x)
+
+\item We have to show that it follows that: \\
+No grocer is a cyclist \\
+$\neg \exists$x.grocer(x) $\wedge$ cyclist(x)
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Proof by refutation}
+
+Assume the contrary and try to derive a contradiction.
+
+\begin{itemize}
+
+\item[A.] Assume $\exists$x.grocer(x) $\wedge$ cyclist(x) 
+
+\item[B.] $\exists$x.grocer(x) $\wedge$ cyclist(x) $\wedge$ industrious(x) (from A and 4) 
+
+\item[C.] $\exists$x.grocer(x) $\wedge$ cyclist(x) $\wedge$ industrious(x) $\wedge$ honest(x) (from B and 3) 
+
+\item[D.] $\exists$x.grocer(x) $\wedge$ cyclist(x) $\wedge$ industrious(x) $\wedge$ honest(x) $\wedge$ healthy(x) (from C and 1) 
+
+\item[E.] $\exists$x.grocer(x) $\wedge$ healthy(x) (from D by conjunction elimination) 
+
+\item \bigskip \bblue{E} contradicts 2. QED
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Examples from NLTK}
+
+\begin{itemize}
+
+\item ex04.py
+
+\item ex05.py
+
+\end{itemize}
+
+
+\end{frame}
+
+
+\frame{
+
+\frametitle{Further reading}
+
+\begin{itemize}
+
+\item On semantics of natural language: \cite{Chierchia:2000uq}: Chapter 3 
+\item On logic: \href{http://www.nltk.org/book/ch10.html}{\cite{Bird:2009ab}}:
+  Chapter 10, Section 3 and \cite{Allwood:1977aa}, Chapters 5 and 6
+
+\end{itemize}
+
+}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Acknowledgements}
+
+Slides 22--26 based on slides by Stephen Pulman
+
+\end{frame}
+
+
+
+
+\begin{frame}[allowframebreaks]{References}
+
+\small
+
+
+\bibliographystyle{fullname}
+\bibliography{bibliography}
+
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

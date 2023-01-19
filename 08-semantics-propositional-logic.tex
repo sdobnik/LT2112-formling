@@ -1,0 +1,684 @@
+% This material is copyright Simon Dobnik and made available under the
+% Creative Commons Attribution 4.0 International License (CC-BY-SA)
+% license http://creativecommons.org/licenses/by-sa/4.0/
+% 
+% Email: simon.dobnik@gu.se
+% Web: http://dobnik.net/simon/teaching/shared/LT2112-formling/
+
+
+\documentclass{beamer}
+
+
+\usepackage{graphicx,hyperref,lingmacros,qtree,stmaryrd,fullname}
+\usepackage[utf8]{inputenc}
+
+
+
+
+
+\logo{\includegraphics[height=0.5cm]{pics/GU-logo.pdf}} 
+
+\newcommand{\bblue}[1]{{\usebeamercolor[fg]{frametitle}{#1}}}
+
+
+
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
+
+\setbeamertemplate{footline}[frame number]
+
+
+\resetcounteronoverlays{enums}
+
+
+\AtBeginSection[]
+{
+\begin{frame}[plain]
+
+{\huge\bblue{\insertsectionhead}}
+
+\end{frame}
+}
+
+
+
+\setlength\fboxrule{1pt}
+\setlength\fboxsep{0mm} 
+
+
+
+\newcommand{\evaluation}[2][]{\ensuremath{\llbracket #2\rrbracket^{#1}}}
+\newcommand{\semval}[1]{\evaluation[v]{\text{#1}}} 
+
+\newcommand{\lb}[1]{[$_{\textsf{#1}}$} 
+
+
+\newcommand{\mng}[1]{\mbox {$[ \! [$ #1 $] \! ]$}}
+
+
+
+
+
+\title[Semantics]{L12: Semantics II - Model-theoretic semantics and propositional logic}
+
+\author[Dobnik]{Simon Dobnik \\ 
+Department of Philosophy, Linguistics and Theory of Science
+} 
+
+\date{October 13, 2015}
+
+
+\begin{document}
+
+
+
+
+
+\frame{\titlepage}
+
+
+
+
+
+\section{Model theory}
+
+\frame{
+
+\frametitle{The idea of model theory}
+
+
+\begin{itemize} 
+ 
+\item linguistic expressions $\leadsto$ formal language $\leadsto$ objects in a model 
+ 
+\item the model provides
+\begin{itemize} 
+ 
+\item a set of basic objects
+ 
+\item an assignment of objects to the basic expressions of the (formal) language 
+ 
+\end{itemize} 
+
+\item for each rule combining expressions in the (formal) language there is a
+  corresponding rule operating on the corresponding model-theoretic objects expressing truth conditions
+ 
+\end{itemize} 
+
+}
+
+
+
+
+
+\section{Propositional logic}
+
+\frame[allowframebreaks]{
+
+\frametitle{Propositional logic}
+
+
+\begin{itemize} 
+ 
+\item the syntax
+\begin{itemize} 
+ 
+\item a set of basic propositions: $\{p,q,r,p_1,p_2,...\}$ 
+ 
+\item the set of expressions of propositional logic:
+\begin{itemize} 
+ 
+\item any basic proposition is an expression of propositional logic 
+ 
+\item if $\alpha, \beta$ are expressions of propositional logic then
+  $\neg\alpha$, $\alpha\wedge\beta$, $\alpha\vee\beta$ and
+  $\alpha\rightarrow\beta$ are expressions of propositional logic  
+\end{itemize} 
+
+ 
+\end{itemize} 
+   
+ 
+\item the model theory (semantics)
+\begin{itemize} 
+ 
+\item  the set of objects provided by a model are a set of two truth
+  values $\{0,1\}$  
+\item a model $M$ also provides an assignment $F_M$ of truth-values to the
+  basic propositions, e.g. $F(p)=0, F(q)=1, F(r)=1$ and so on
+
+\item if $\alpha$ is an expression of propositional logic the
+  interpretation of $\alpha$ with respect to a model $M$ is
+  represented by \mng{$\alpha$}$^M$
+\begin{itemize} 
+ 
+\item If $\alpha$ is a basic proposition then \mng{$\alpha$}$^M$ is $F_M(\alpha)$ 
+ 
+ 
+ 
+\item \mng{$\neg\alpha$}$^M$=0 if \mng{$\alpha$}$^M$=1;
+  \mng{$\neg\alpha$}$^M$=1 otherwise 
+ 
+\item \mng{$\alpha\wedge\beta$}$^M$=1 if
+  \mng{$\alpha$}$^M$=\mng{$\beta$}$^M$=1;
+  \mng{$\alpha\wedge\beta$}$^M$=0 otherwise
+
+\item \mng{$\alpha\vee\beta$}$^M$=0 if
+  \mng{$\alpha$}$^M$=\mng{$\beta$}$^M$=0;
+  \mng{$\alpha\vee\beta$}$^M$=1 otherwise 
+\item \mng{$\alpha\rightarrow\beta$}$^M$=0 if
+  \mng{$\alpha$}$^M$=1 and \mng{$\beta$}$^M$=0;
+  \mng{$\alpha\rightarrow\beta$}$^M$=1 otherwise 
+ 
+\end{itemize} 
+  
+ 
+\end{itemize} 
+   
+ 
+\end{itemize} 
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Truth tables}
+ 
+\begin{center}
+\begin{columns}\begin{column}{0.25\textwidth}
+
+\bblue{Conjunction}
+
+\begin{tabular}{c c c}
+p & $\wedge$ & q \\
+\hline
+1 & 1 & 1 \\
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{tabular}
+
+\bigskip
+
+\bblue{Disjunction}
+
+\begin{tabular}{c c c}
+p & $\vee$ & q \\
+\hline
+1 & 1 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+0 & 0 & 0
+\end{tabular}
+\end{column}
+\begin{column}{0.25\textwidth}
+
+\bblue{Implication}
+
+\begin{tabular}{c c c}
+p & $\rightarrow$ & q \\
+\hline
+1 & 1 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 1 \\
+0 & 1 & 0
+\end{tabular}
+
+\bigskip
+
+\bblue{Bidirectional implication/equivalence}
+
+\begin{tabular}{c c c}
+p & $\leftrightarrow$ & q \\
+p & $\equiv$ & q \\
+\hline
+1 & 1 & 1 \\
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{tabular}
+
+\end{column}
+
+\begin{column}{0.25\textwidth}
+
+\bblue{Exclusive disjunction}
+
+\begin{tabular}{c c c}
+p & $\oplus$ & q \\
+\hline
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+0 & 0 & 0
+\end{tabular}
+
+\footnotesize Equivalent to $\neg (p \leftrightarrow q)$. Check the values in the tables!
+
+\normalsize
+
+\bigskip
+
+\bblue{Negation}
+
+\begin{tabular}{c c}
+$\neg$ & p \\
+\hline
+1 & 0 \\
+0 & 1 \\
+\end{tabular}
+
+\end{column}
+
+
+
+\end{columns}
+\end{center}
+
+}
+
+
+
+
+
+\frame{
+
+\frametitle{Checking truth values}
+
+\enumsentence{If Alex is in the garden and Goldy behaves, Lydia is happy.}
+
+\bigskip
+
+\pause
+
+Let $p$ be ``Alex is in the garden.'' 
+Let $q$ be ``Goldy behaves.''
+
+Let $r$ be ``Lydia is happy.''
+
+\bigskip \pause
+
+$M \langle A, F \rangle$ 
+$A = \{0,1\}$
+
+$F(\mbox{\textsf{p}}) = 1; F(\mbox{\textsf{q}}) = 0; F(\mbox{\textsf{r}}) = 1$\\
+
+\bigskip \pause
+
+\bblue{\mng{(p $\wedge$ q) $\rightarrow$ r}$^M$} 
+\begin{tabular}{l c l c l}
+( p & $\wedge$ & q ) & $\rightarrow$ & r \\
+\hline
+1 &          & 0 &               & 1 \\
+  & 0        &   &               & 1 \\
+  &          &   & 1             &   \\
+\end{tabular}
+
+
+}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Logic and inference}
+
+\begin{itemize}
+
+\item Logic is the study of valid arguments or inferences.
+
+\item Validity of arguments is different to truth and falsity of their components
+
+\item But if an argument is valid and the premises are true, then the
+  conclusion must also be true.
+
+\item \ldots if an argument is valid and the premises are false, then
+  the conclusion can be either true or false. 
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\eenumsentence{
+
+\item Pavarotti was Italian. All Italians are European. Therefore, Pavarotti was European. \\ (Valid, premises and conclusions true).
+
+\item Pavarotti was French. All French are European. Therefore, Pavarotti was European \\ (Valid, premises false, conclusion true).
+
+\item Pavarotti was French. All French are European. Therefore, Pavarotti was European. \\ (Valid, premises and conclusion false).
+
+\item Pavarotti was Italian. All Italians are European. Therefore, Loren was Italian. \\ (Invalid, premises and conclusions true).
+
+
+}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Some concepts}
+
+\begin{itemize}[<+->]
+
+\item \bblue{Premise and conclusion:} we reason from premises to conclusion
+
+\item \bblue{Tautology:} a proposition or statement form is a tautology if it is true no matter what the truth values of its components.
+
+\item \bblue{Contradiction:} a proposition or statement form is a contradiction if it is false no matter what the truth values of its components.
+
+\item If a statement of the form $A \rightarrow B$ is a tautology, then A \bblue{logically implies} B, alternatively: B is a \bblue{logical consequence} of A; $A \rightarrow B$ is a \bblue{logically valid} inference.
+
+\item $A$ and $B$ are \bblue{logically equivalent} ($A \equiv B$) if $A \leftrightarrow B$ is a tautology. 
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Logical equivalences}
+
+
+\begin{enumerate}
+
+\item $\neg(P \wedge Q) \equiv \neg P \vee \neg Q$ (De Morgan's law)
+
+\item $\neg (P \vee Q) \equiv \neg P \wedge \neg Q$ (De Morgan's law)
+
+\item $P \rightarrow Q \equiv \neg P \vee Q$
+
+\item $P \rightarrow Q \equiv \neg Q \rightarrow \neg P$ (Contrapositive)
+
+\item $P \wedge Q \equiv Q \wedge P$
+
+\item $P \vee Q \equiv Q \vee P$ 
+
+\item $P \equiv \neg\neg P$
+
+\item $P \wedge ( Q \vee R ) \equiv (P \wedge Q) \vee (P \wedge R)$ (Distributivity)
+
+\item $P \vee (Q \wedge R) \equiv (P \vee Q) \wedge (P \vee R)$ (Distributivity)
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference rules}
+
+\begin{itemize}
+
+\item \bblue{Modus Ponendo Ponens:} \\
+From $A$, $A \rightarrow B$, infer $B$
+
+\item \bblue{Modus Tollendo Tollens:} \\
+From $\neg B$, $A \rightarrow B$, infer $\neg A$
+
+\item \bblue{Conjunction introduction:} \\
+Given $A$, $B$, infer $A \wedge B$
+
+\item \bblue{Conjunction elimination:} \\
+Given $A \wedge B$, infer $A$.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference}
+
+\begin{itemize}
+
+\item If it is snowing (P), you will get wet (Q) and cold (R).
+
+\item If you get cold, you will get flu (X) or frostbite (Y).
+
+\item If you get wet, you won't get frostbite.
+
+\item It is snowing.
+
+\item Will you get flu?
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Inference}
+
+\begin{enumerate}
+
+\item $P \rightarrow Q \wedge R$
+
+\item $R \rightarrow X \vee Y$ 
+
+\item $Q \rightarrow \neg Y$
+
+\item $P$
+
+\item $X?$
+
+\item $Q \wedge R$ (from 1 and 4 by MPP)
+
+\item $R$ (from 6 by conjunction elimination)
+
+\item $X \vee Y$ (from 7 and 2 by MPP)
+
+\item $Q$ (from 6 by conjunction elimination)
+
+\item $\neg Y$ (from 3 and 9 by MPP)
+
+\item $(\neg(\neg X)) \vee Y$ (from 8 by equivalence 7)
+
+\item $(\neg X) \rightarrow Y$ (from 11 by equivalence 3)
+
+\item $\neg(\neg X)$ (from 12 and 10 by MTT)
+
+\item $X$ (from 12 by equivalence 3)
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\frametitle{Contradiction and inconsistency}
+
+
+\begin{itemize}
+
+\item If $P \rightarrow Q$ is \bblue{tautology}, then $P \wedge \neg Q$ will be a \bblue{contradiction}. 
+
+
+\item $P \rightarrow Q$ should be true for every assignment of truth values to $P$ and $Q$ and there should be no assignment of truth values to $P$ and $Q$ that makes $P \wedge \neg Q$ true (cf. definitions on s.11)
+
+\item A set of propositions is \bblue{consistent} (\bblue{inconsistent}) if there is \bblue{AN} assignment (\bblue{no assignment}) of truth values to the conjunction of them that gives truth overall.
+
+
+
+\item If premises are \bblue{inconsistent}, we can deduce anything: \\
+  \begin{itemize}
+    \item $(P \wedge \neg P) \rightarrow Q$: will be tautology \\
+    \item $(P \wedge \neg P) \rightarrow \neg Q$: will also be a tautology.
+  \end{itemize}
+
+
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Checking of valid arguments}
+
+\begin{itemize}
+
+\item \bblue{EITHER} create a conjunction of premises  and construct an implication to the conclusion. Using truth tables check whether it is logically valid, i.e. a tautology. \\
+$P_1 \wedge P_2 \ldots P_n \rightarrow Q$
+
+\item \bblue{OR} check whether the conjunction of the premises and the negation of the conclusion is consistent: \\
+$P_1 \wedge P_2 \ldots P_n \wedge \neg Q$ \\
+If so, the conclusion does not follow logically from the premises; it is possible for the premises to be true and the conclusion false.
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Examples}
+
+\bblue{1.} If George plays in the garden (P), Lydia will be happy. If George sings an aria, Lydia will be happy (Q). Either George will play in the garden or sing an aria. So Lydia will be happy.
+
+\bigskip
+
+$((P \rightarrow R) \wedge (Q \rightarrow R) \wedge (P \vee Q)) \rightarrow R$
+
+
+
+
+
+
+\bigskip
+
+\bblue{2.} George likes catching mice (P). George has a long tail (Q). If George is a cat, then both of these facts are explained (P and Q). Hence, George is a cat (R).
+
+\bigskip
+
+$((R \rightarrow P) \wedge (R \rightarrow Q) \wedge P \wedge Q) \rightarrow R$
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\frametitle{Exercises}
+
+1. Demonstrate the validity of the Propositional Calculus equivalences 1 and 2 on s.12 (De Morgan's laws), using truth tables.
+
+\bigskip
+
+2. Formalise the following argument and determine by the truth table method whether or not it is valid:
+
+\bigskip
+
+If the firemen go on strike, lives will be lost. If the government give the firemen more money, there will be less money for hospitals, but the firemen will not go on strike. If there is less money for hospitals, lives will be lost. So whether the firemen go on strike or not, lives will be lost.
+
+\bigskip
+
+3. Check if you get the same result by applying your formalisation to a theorem prover in NLTK.
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Further reading}
+
+\begin{itemize}
+
+\item On semantics of natural language: \cite{Chierchia:2000uq}, Chapter 2
+
+\item On logic: \href{http://www.nltk.org/book/ch10.html}{\cite{Bird:2009ab}}:
+  Chapter 10, Section 1 and 2 and \cite{Allwood:1977aa}, Chapters 4 and 6
+
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\frametitle{Acknowledgements}
+
+\begin{itemize}
+
+\item Slides 5--6 based on slides by Robin Cooper
+
+\item Slides 9--19 based on slides by Stephen Pulman
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[allowframebreaks]{References}
+
+\small
+
+
+\bibliographystyle{fullname}
+\bibliography{bibliography}
+
+\end{frame}
+
+
+
+
+
+\end{document}
+

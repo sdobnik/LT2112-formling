@@ -1,0 +1,28 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Bird, Klein, and Loper}2009]{Bird:2009ab}
+Bird, Steven, Ewan Klein, and Edward Loper.
+\newblock 2009.
+\newblock {\em Natural language processing with Python}.
+\newblock O'Reilly, Beijing, Cambridge, Farnham, K{\"o}ln, Sebastopol and
+  Tokyo, 1st ed edition.
+
+\bibitem[\protect\citename{Carnie}2007]{Carnie:2007aa}
+Carnie, Andrew.
+\newblock 2007.
+\newblock {\em Syntax: a generative introduction}, volume~4.
+\newblock Blackwell Pub., Malden, MA, 2nd ed edition.
+
+\bibitem[\protect\citename{Dalrymple}2001]{Dalrymple:2001aa}
+Dalrymple, Mary.
+\newblock 2001.
+\newblock {\em Lexical functional grammar}, volume~34.
+\newblock Academic Press, San Diego.
+
+\bibitem[\protect\citename{Haegeman}1994]{Haegeman:1994aa}
+Haegeman, Liliane M.~V.
+\newblock 1994.
+\newblock {\em Introduction to government and binding theory}, volume~1.
+\newblock B. Blackwell, Oxford, UK, 2 edition.
+
+\end{thebibliography}

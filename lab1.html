@@ -1,0 +1,48 @@
+<html>
+
+  <head>
+    <title>Lab1: Writing phrase structure grammars</title>
+  </head>
+
+  <body>
+
+    <h1>Lab1: Writing phrase structure grammars</h1>
+
+<p>In this assignment you will write phrase structure rules to analyse (or parse) some English sentences.</p>
+<p>First download&nbsp;<a href="https://linux.dobnik.net/simon/teaching/fetch.php?file=formling-ht2015/lab1.zip" target="_blank">the following archive</a> which contains the code, the grammar files and the sentences for this assignment.</p>
+<p>We will work on this assignment incrementally. After each lecture I will add more sentences and hence your grammar should become more and more sophisticated to cover them. Therefore, it is important that you try to finish each part before we continue with the next lecture. You can also use this opportunity to ask questions. As always you are encouraged to discuss this assignment with your colleagues and me but when it comes down to writing the rules, you have to do this on your own.</p>
+<p>Do not forget to update your sentence.txt (and your grammar!) with the versions given in the lectures.</p>
+<p>The rules are stored in a grammar file with an extension .fcfg. This is a text file which you can open in a text editor such as TextMate or Emacs. For more information have to write rules have a look at the file example-grammar.fcfg as well as Chapter 8 of the NLTK book (sections 8.1 - 8.3) which you can find <a href="http://www.nltk.org/book/ch08.html" target="_blank">here</a>.</p>
+<p>The sentences that your grammar (in grammar.fcfg) should parse are given in a file sentences.txt. Your task is to extend or modify the rules in example-grammar.fcfg so that they will parse sentences.txt in a way that follows our linguistic intuitions. Remember what I said in the lecture: first identify heads and then determine whether there are any modifier phrases which are parts of the the same constituent.</p>
+<p>You can run the code by typing the following into a terminal:</p>
+<pre>$ python parser3
+</pre>
+<p>(This depends on what is selected as the default python on your computer. The code requires Python 3 and a recent NLTK. On my computer I have to run "python3.4 parser3" to select Python 3.).</p>
+<p>The programme prints out bracketed analyses of sentences and draws their trees graphically. By default it uses example-grammar.txt and example-grammar.fcfg. To start with your grammar and the assignment sentences please uncomment/comment the appropriate lines at the top of parser3.py. Also, if you are doing a quick testing of the grammar you may want to disable drawing of the trees, which you can do by commenting and uncommenting appropriate lines.</p>
+<p>Here is an example output:</p>
+<pre>2:  every cat chases a dog in the garden
+
+(S[]
+  (NP[] (Det[] every) (N[] cat))
+  (VP[]
+    (VP[] (V[] chases) (NP[] (Det[] a) (N[] dog)))
+    (PP[] (P[] in) (NP[] (Det[] the) (N[] garden)))))
+
+(S[]
+  (NP[] (Det[] every) (N[] cat))
+  (VP[]
+    (V[] chases)
+    (NP[]
+      (NP[] (Det[] a) (N[] dog))
+      (PP[] (P[] in) (NP[] (Det[] the) (N[] garden))))))
+
+</pre>
+<p>The sentence is syntactically ambiguous as there are two parses depending on the attachment of the prepositional phrase (the number of parses is printed to the left of the sentence). The round brackets () tell is about the constituent structure. There are also square brackets [] which have no use here but we will talk about them in our next lecture.</p>
+<p>Happy grammar writing!</p>
+
+<hr>
+
+<p>This material is copyright Simon Dobnik and made available under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">the Creative Commons Attribution 4.0 International License (CC-BY-SA) license</a><br> Email: <a href="mailto:simon.dobnik@gu.se" target="_blank">simon.dobnik@gu.se</a></br> Web: <a href="http://dobnik.net/simon/teaching/shared/LT2112-formling/" target="_blank">http://dobnik.net/simon/teaching/shared/LT2112-formling/</a></p>
+    </body>
+
+</html>
